@@ -13,7 +13,7 @@ starting point for a new spring boot micro service, written in Kotlin
 * [x] CodeBeat integration
 * [x] CodeCov integration
 * [x] Swagger UI
-* [ ] Sentry integration
+* [x] Sentry integration
 * [x] Dockerization
 * [ ] Heroku deployment
 
@@ -27,7 +27,7 @@ starting point for a new spring boot micro service, written in Kotlin
 
 ## start
 
-`java -jar build/libs/*.jar`
+`java -jar build/libs/*.jar --sentry.enabled=true --sentry.dsn=${YOUR_SENTRY_DSN}`
 
 ## build docker
 
@@ -35,7 +35,7 @@ starting point for a new spring boot micro service, written in Kotlin
 
 ## start docker
 
-`docker run -it -p 8080:8080 springboot-kotlin-starter`
+`docker run -it -p 8080:8080 -e sentry.enabled='true' -e sentry.dsn='${YOUR_SENTRY_DSN}' springboot-kotlin-starter`
 
 ## access
 

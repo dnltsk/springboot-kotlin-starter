@@ -3,13 +3,20 @@ package org.dnltsk.springbootkotlinstarter
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
+import io.sentry.Sentry
+import io.sentry.spring.SentryExceptionResolver
+import io.sentry.spring.SentryServletContextInitializer
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+import org.springframework.boot.web.servlet.ServletContextInitializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.servlet.HandlerExceptionResolver
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
@@ -58,13 +65,33 @@ class SwaggerConfiguration {
     }
 
     @Bean
-    fun forwardIndexPagesToSwaggerDoc(): WebMvcConfigurerAdapter {
-        return object : WebMvcConfigurerAdapter() {
+    fun forwardIndexPagesToSwaggerDoc(): WebMvcConfigurer {
+        return object : WebMvcConfigurer {
             override fun addViewControllers(registry: ViewControllerRegistry) {
                 registry.addViewController("/").setViewName("redirect:/swagger-ui.html")
                 registry.addViewController("/index.html").setViewName("redirect:/swagger-ui.html")
             }
         }
+    }
+
+}
+
+@Configuration
+@ConditionalOnProperty(prefix = "sentry", name = ["enabled"], havingValue = "true")
+class SentryConfiguration {
+
+    @Value("\${sentry.dsn}")
+    private val sentryDns: String? = null
+
+    @Bean
+    fun sentryExceptionResolver(): HandlerExceptionResolver {
+        return SentryExceptionResolver()
+    }
+
+    @Bean
+    fun sentryServletContextInitializer(): ServletContextInitializer {
+        Sentry.init(sentryDns)
+        return SentryServletContextInitializer()
     }
 
 }
