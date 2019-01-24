@@ -29,7 +29,7 @@ script:
   - ./gradlew jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
   - ./gradlew bootJar
-  - docker build . -t springboot-kotlin-starter
+  - docker build . -t {DOCKER_USERNAME}/springboot-kotlin-starter
 
 deploy:
   provider: script
