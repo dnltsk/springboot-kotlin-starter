@@ -9,8 +9,12 @@ services:
   - docker
   -
 before_install:
+  # install heroku CLI
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   # login to docker registries (dockerhub + heroku)
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+  # install heroku CLI
+  - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
 
 before_script:
   - chmod +x gradlew
@@ -29,7 +33,7 @@ script:
   - ./gradlew jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
   - ./gradlew bootJar
-  - docker build . -t {DOCKER_USERNAME}/springboot-kotlin-starter
+  - docker build . -t ${DOCKER_USERNAME}/springboot-kotlin-starter
 
 deploy:
   provider: script
