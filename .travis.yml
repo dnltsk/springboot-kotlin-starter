@@ -34,9 +34,12 @@ script:
   - bash <(curl -s https://codecov.io/bash)
   - ./gradlew bootJar
   - docker build . -t ${DOCKER_USERNAME}/springboot-kotlin-starter
+  - docker tag ${DOCKER_USERNAME}/springboot-kotlin-starter registry.heroku.com/springboot-kotlin-starter/web
 
 deploy:
   provider: script
   script:
-    docker push ${DOCKER_USERNAME}/springboot-kotlin-starter
+    docker push ${DOCKER_USERNAME}/springboot-kotlin-starter;
+    docker push registry.heroku.com/springboot-kotlin-starter/web;
+    heroku container:release web --app springboot-kotlin-starter
   branch: master
