@@ -15,9 +15,22 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-script:
-  - ./gradlew clean test
-  - ./gradlew jacocoTestReport
+stages:
+  - test
+  - build
+  - name: deploy
+    if: branch = master
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+jobs:
+  include:
+    - stage: test
+      script:
+        - ./gradlew clean test
+        - ./gradlew jacocoTestReport
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+    - stage: build
+        - ./gradlew build
+        - docker build . -t springboot-kotlin-starter
+    - stage: deploy
+        - echo "deploy todo"
