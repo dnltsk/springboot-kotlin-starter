@@ -12,7 +12,7 @@ starting point for a new spring boot micro service, written in Kotlin
 * [x] Travis CI integration
 * [ ] CodeBeat integration
 * [x] CodeCov integration
-* [ ] Swagger UI
+* [x] Swagger UI
 * [ ] Sentry integration
 * [x] Dockerization
 * [ ] Heroku deployment
