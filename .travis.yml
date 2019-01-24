@@ -28,7 +28,7 @@ script:
   - ./gradlew clean test
   - ./gradlew jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
-  - ./gradlew clean build
+  - ./gradlew bootJar
   - docker build . -t springboot-kotlin-starter
 
 deploy:
