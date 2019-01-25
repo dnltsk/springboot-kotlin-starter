@@ -35,7 +35,7 @@ starting point for a new spring boot micro service, written in Kotlin
 
 ## start docker
 
-`docker run -it -p 8080:8080 -e sentry.enabled='true' -e sentry.dsn='${YOUR_SENTRY_DSN}' springboot-kotlin-starter`
+`docker run -it -p 8080:8080 -e PORT=8080 -e sentry.enabled='true' -e sentry.dsn='${YOUR_SENTRY_DSN}' springboot-kotlin-starter`
 
 ## access
 

@@ -8,12 +8,13 @@
 #   docker build . -t springboot-kotlin-starter
 #
 # RUN
-#   docker run -it -p 8080:8080 springboot-kotlin-starter
+#   docker run -it -p 8080:8080 -e PORT=8080 springboot-kotlin-starter
 #
 
 FROM alpine:3.8
 
 ENV LANG C.UTF-8
+ENV PORT 8080
 
 RUN { \
 		echo '#!/bin/sh'; \
@@ -41,5 +42,7 @@ RUN mkdir /app
 COPY build/libs/*.jar /app/app.jar
 
 WORKDIR /app
-EXPOSE 8080
-CMD java -jar app.jar
+
+EXPOSE $PORT
+
+CMD java -jar app.jar --server.port=$PORT
