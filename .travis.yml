@@ -14,7 +14,7 @@ before_install:
   # login to docker registries (dockerhub + heroku)
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   # install heroku CLI
-  - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
+  - echo "$HEROKU_TOKEN" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
 
 before_script:
   - chmod +x gradlew
@@ -34,12 +34,12 @@ script:
   - bash <(curl -s https://codecov.io/bash)
   - ./gradlew bootJar
   - docker build . -t ${DOCKER_USERNAME}/springboot-kotlin-starter
-  - docker tag ${DOCKER_USERNAME}/springboot-kotlin-starter registry.heroku.com/springboot-kotlin-starter/web
+  - docker tag ${DOCKER_USERNAME}/springboot-kotlin-starter registry.heroku.com/${HEROKU_APP_NAME}/web
 
 deploy:
   provider: script
   script:
     docker push ${DOCKER_USERNAME}/springboot-kotlin-starter;
-    docker push registry.heroku.com/springboot-kotlin-starter/web;
-    heroku container:release web --app springboot-kotlin-starter
+    docker push registry.heroku.com/${HEROKU_APP_NAME}/web;
+    heroku container:release web --app ${HEROKU_APP_NAME}
   branch: master
