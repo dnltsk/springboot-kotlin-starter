@@ -31,11 +31,11 @@ starting point for a new spring boot micro service, written in Kotlin
 
 ## build docker
 
-`docker build . -t springboot-kotlin-starter`
+`docker build --build-arg SENTRY_ENABLED=true --build-arg SENTRY_DSN=${YOUR_SENTRY_DSN} . -t springboot-kotlin-starter`
 
 ## start docker
 
-`docker run -it -p 8080:8080 -e PORT=8080 -e sentry.enabled='true' -e sentry.dsn='${YOUR_SENTRY_DSN}' springboot-kotlin-starter`
+`docker run -it -p 8080:8080 -e PORT=8080 springboot-kotlin-starter`
 
 ## access
 

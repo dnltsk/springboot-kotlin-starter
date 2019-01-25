@@ -33,7 +33,7 @@ script:
   - ./gradlew jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
   - ./gradlew bootJar
-  - docker build . -t ${DOCKER_USERNAME}/springboot-kotlin-starter
+  - docker build  --build-arg SENTRY_ENABLED=true --build-arg SENTRY_DSN=${SENTRY_DSN} . -t ${DOCKER_USERNAME}/springboot-kotlin-starter
   - docker tag ${DOCKER_USERNAME}/springboot-kotlin-starter registry.heroku.com/${HEROKU_APP_NAME}/web
 
 deploy:

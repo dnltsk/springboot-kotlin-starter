@@ -5,7 +5,7 @@
 #
 #
 # BUILD
-#   docker build . -t springboot-kotlin-starter
+#   docker build --build-arg SENTRY_ENABLED=true --build-arg SENTRY_DSN=${YOUR_SENTRY_DSN} . -t springboot-kotlin-starter
 #
 # RUN
 #   docker run -it -p 8080:8080 -e PORT=8080 springboot-kotlin-starter
@@ -15,6 +15,11 @@ FROM alpine:3.8
 
 ENV LANG C.UTF-8
 ENV PORT 8080
+
+ARG SENTRY_ENABLED=false
+ENV ENV_SENTRY_ENABLED=$SENTRY_ENABLED
+ARG SENTRY_DSN="dsn-not-set"
+ENV ENV_SENTRY_DSN=$SENTRY_DSN
 
 RUN { \
 		echo '#!/bin/sh'; \
@@ -45,4 +50,4 @@ WORKDIR /app
 
 EXPOSE $PORT
 
-CMD java -jar app.jar --server.port=$PORT
+CMD java -jar app.jar --server.port=$PORT --sentry.enabled=$ENV_SENTRY_ENABLED --sentry.dsn=$ENV_SENTRY_DSN
