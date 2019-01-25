@@ -1,3 +1,17 @@
+#
+# CI/CD chain is heavily inspired by
+# https://medium.com/@javierfernandes/continuous-deployment-con-docker-travis-heroku-c24042fb830b
+#
+# Required ENV variables on Travis CI:
+#   - DOCKER_USERNAME - from dockerhub account
+#   - DOCKER_PASSWORD - from dockerhub account
+#   - HEROKU_APP_NAME
+#   - HEROKU_USERNAME - ="_" because HEROKU_TOKEN is already associated with the actual username
+#   - HEROKU_TOKEN    - token from the `heroku authorizations:create` command
+#   - HEROKU_API_KEY  - API token from the Web GUI
+#   - SENTRY_DSN      - Sentry's project specific data source name
+#
+
 sudo: required
 
 language: java
@@ -9,11 +23,8 @@ services:
   - docker
 
 before_install:
-  # install heroku CLI
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
-  # login to docker registries (dockerhub + heroku)
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-  # install heroku CLI
   - echo "${HEROKU_TOKEN}" | docker login -u "${HEROKU_USERNAME}" --password-stdin registry.heroku.com
 
 before_script:
