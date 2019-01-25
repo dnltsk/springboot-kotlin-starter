@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/dnltsk/springboot-kotlin-starter.svg?branch=master)](https://travis-ci.org/dnltsk/springboot-kotlin-starter)
 [![CodeBeat](https://codebeat.co/badges/6fb20abc-6142-406d-97af-6314ac5972f6)](https://codebeat.co/projects/github-com-dnltsk-springboot-kotlin-starter-master)
 [![CodeCov](https://codecov.io/gh/dnltsk/springboot-kotlin-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/dnltsk/springboot-kotlin-starter)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=springboot-kotlin-starter&root=index.html&svg=1)](https://springboot-kotlin-starter.herokuapp.com/)
 
 
 # springboot-kotlin-starter
@@ -16,7 +17,8 @@ starting point for a new spring boot micro service, written in Kotlin
 * [x] Sentry integration
 * [x] Dockerization
 * [x] Heroku deployment
-* [ ] Logstash
+* [ ] Monitoring
+* [ ] Central logging
 
 ## test
 
