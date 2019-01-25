@@ -15,7 +15,8 @@ starting point for a new spring boot micro service, written in Kotlin
 * [x] Swagger UI
 * [x] Sentry integration
 * [x] Dockerization
-* [ ] Heroku deployment
+* [x] Heroku deployment
+* [ ] Logstash
 
 ## test
 
