@@ -21,6 +21,7 @@ ARG SENTRY_ENABLED=false
 ENV ENV_SENTRY_ENABLED=$SENTRY_ENABLED
 ARG SENTRY_DSN="dsn-not-set"
 ENV ENV_SENTRY_DSN=$SENTRY_DSN
+ENV PORT=8080
 COPY --from=builder /project/build/libs/*.jar /app/app.jar
 WORKDIR /app
 EXPOSE $PORT
