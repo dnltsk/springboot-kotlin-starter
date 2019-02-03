@@ -21,7 +21,7 @@ ARG SENTRY_ENABLED=false
 ENV ENV_SENTRY_ENABLED=$SENTRY_ENABLED
 ARG SENTRY_DSN="dsn-not-set"
 ENV ENV_SENTRY_DSN=$SENTRY_DSN
-COPY --from=builder /project/build/libs/springbootkotlinstarter-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=builder /project/build/libs/*.jar /app/app.jar
 WORKDIR /app
 EXPOSE $PORT
 CMD java -jar app.jar --server.port=$PORT --sentry.enabled=$ENV_SENTRY_ENABLED --sentry.dsn=$ENV_SENTRY_DSN
